@@ -32,5 +32,7 @@ jobs:
         run: docker run 
               --env USERNAME="${{secrets.USERNAME}}"
               --security-opt seccomp=chrome.json
-              --name=epsi-ical-${{github.ref_name}} -p 3001:3000 -d epsi-ical-${{github.ref_name}}
+              --name=epsi-ical-${{github.ref_name}} 
+              --restart always 
+              -p 3001:3000 -d epsi-ical-${{github.ref_name}}
 
