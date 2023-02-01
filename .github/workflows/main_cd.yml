@@ -12,7 +12,7 @@ jobs:
     runs-on: lil-server
     steps:
       - name: Remove old container
-        run: docker rm -f $(docker ps -q --filter="name=epsi-ical")
+        run: docker rm -f $(docker ps -aq --filter="name=epsi-ical")
 
   build-image:
     runs-on: lil-server
@@ -32,7 +32,6 @@ jobs:
         run: >
           docker run 
           --env USERNAME="${{secrets.USERNAME}}"
-          --security-opt seccomp=chrome.json
           --name=epsi-ical-${{github.ref_name}} 
           --restart always 
           -p 3001:3000 -d epsi-ical-${{github.ref_name}}

@@ -12,7 +12,7 @@ export async function main() {
 	const monthLimit = date.getMonth() + 4
 	let timetables: Course[] = [];
 	// open the headless browser
-	const browser = await puppeteer.launch({ headless: true, executablePath: process.env["PUPPETEER_EXECUTABLE_PATH"] });
+	const browser = await puppeteer.launch({ headless: true, executablePath: process.env["PUPPETEER_EXECUTABLE_PATH"], args: ["--no-sandbox"] });
 	// open a new page
 	let page = await browser.newPage();	
 	while (date.getMonth() !== monthLimit) {
