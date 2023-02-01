@@ -29,10 +29,11 @@ jobs:
     needs: [ build-image ]
     steps:
       - name: Run Docker Container...
-        run: docker run 
-              --env USERNAME="${{secrets.USERNAME}}"
-              --security-opt seccomp=chrome.json
-              --name=epsi-ical-${{github.ref_name}} 
-              --restart always 
-              -p 3001:3000 -d epsi-ical-${{github.ref_name}}
+        run: >
+          docker run 
+          --env USERNAME="${{secrets.USERNAME}}"
+          --security-opt seccomp=chrome.json
+          --name=epsi-ical-${{github.ref_name}} 
+          --restart always 
+          -p 3001:3000 -d epsi-ical-${{github.ref_name}}
 
