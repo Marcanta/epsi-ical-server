@@ -36,6 +36,5 @@ USER pptruser
 
 EXPOSE 3000
 
-# CMD [ "npm", "run", "deploy" ]
-CMD ["tail", "-f", "/dev/null"]
+CMD [ "npm", "run", "deploy" ]
 
