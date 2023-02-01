@@ -1,0 +1,36 @@
+name: CD / Deploy / Production
+
+on: 
+  push:
+    tags:        
+      - '**'  
+  workflow_dispatch:
+    
+      
+jobs:
+  clear-container:
+    runs-on: lil-server
+    steps:
+      - name: Remove old container
+        run: docker rm -f $(docker ps -q --filter="name=resume")
+
+  build-image:
+    runs-on: lil-server
+    needs: [ clear-container ]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Build Docker Image...
+        run: docker build -t epsi-ical-${{github.ref_name}} .
+
+  run-container:
+    runs-on: lil-server
+    needs: [ build-image ]
+    steps:
+      - name: Run Docker Container...
+        run: docker run 
+              --env USERNAME="${{secrets.USERNAME}}"
+              --security-opt seccomp=chrome.json
+              --name=epsi-ical-${{github.ref_name}} -p 3001:3000 -d epsi-ical-${{github.ref_name}}
+
