@@ -12,7 +12,7 @@ jobs:
     runs-on: lil-server
     steps:
       - name: Remove old container
-        run: docker rm -f $(docker ps -q --filter="name=resume")
+        run: docker rm -f $(docker ps -q --filter="name=epsi-ical")
 
   build-image:
     runs-on: lil-server
